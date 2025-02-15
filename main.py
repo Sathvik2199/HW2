@@ -1,37 +1,28 @@
-import sys
-from calculator import Calculator
-from decimal import Decimal, InvalidOperation
-
-def calculate_and_print(a, b, operation_name):
-    operation_mappings = {
-        'add': Calculator.add,
-        'subtract': Calculator.subtract,
-        'multiply': Calculator.multiply,
-        'divide': Calculator.divide
-    }
-
-    # Unified error handling for decimal conversion
+def perform_calculation(a, b, operation):
     try:
-        a_decimal, b_decimal = map(Decimal, [a, b])
-        result = operation_mappings.get(operation_name) # Use get to handle unknown operations
-        if result:
-            print(f"The result of {a} {operation_name} {b} is equal to {result(a_decimal, b_decimal)}")
+        a = int(a)
+        b = int(b)
+        if operation == 'add':
+            return f"The result of {a} add {b} is equal to {a + b}"
+        elif operation == 'subtract':
+            return f"The result of {a} subtract {b} is equal to {a - b}"
+        elif operation == 'multiply':
+            return f"The result of {a} multiply {b} is equal to {a * b}"
+        elif operation == 'divide':
+            if b == 0:
+                return "An error occurred: Cannot divide by zero"
+            return f"The result of {a} divide {b} is equal to {a // b}"
         else:
-            print(f"Unknown operation: {operation_name}")
-    except InvalidOperation:
-        print(f"Invalid number input: {a} or {b} is not a valid number.")
-    except ZeroDivisionError:
-        print("Error: Division by zero.")
-    except Exception as e: # Catch-all for unexpected errors
-        print(f"An error occurred: {e}")
+            return f"Unknown operation: {operation}"
+    except ValueError:
+        return f"Invalid number input: {a} or {b} is not a valid number."
 
 def main():
-    if len(sys.argv) != 4:
-        print("Usage: python calculator_main.py <number1> <number2> <operation>")
-        sys.exit(1)
-    
-    _, a, b, operation = sys.argv
-    calculate_and_print(a, b, operation)
+    a = input("Enter first number: ")
+    b = input("Enter second number: ")
+    operation = input("Enter operation (add, subtract, multiply, divide): ")
+    result = perform_calculation(a, b, operation)
+    print(result)
 
-if __name__ == '_main_':
+if __name__ == "__main__":
     main()
