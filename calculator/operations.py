@@ -1,16 +1,16 @@
 from decimal import Decimal
-# Define the functions with type hints
-def add(a: Decimal, b: Decimal) -> Decimal:
+
+def add(a,b):
     return a + b
 
-def subtract(a: Decimal, b: Decimal) -> Decimal:
+def subtract(a,b):
     return a - b
 
-def multiply(a: Decimal, b: Decimal) -> Decimal:
+def multiply(a,b):
     return a * b
 
-def divide(a: Decimal, b: Decimal) -> Decimal:
-    if b == 0:
+def divide(a, b):
+    if b == Decimal('0'):
         raise ValueError("Cannot divide by zero")
     return a / b
 
